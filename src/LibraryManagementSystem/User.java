@@ -6,10 +6,11 @@ public class User {
     String Name;
     String User_Id;
     Double Fine_Amount;
-    LocalDateTime Books_Issued;
+    String Books_Issued;
     LocalDateTime Date_Issued;
+    LocalDateTime Return_Date;
 
-    public User(String name, String user_Id, Double fine_Amount, LocalDateTime books_Issued, LocalDateTime date_Issued, LocalDateTime return_Date) {
+    public User(String name, String user_Id, Double fine_Amount, String books_Issued, LocalDateTime date_Issued, LocalDateTime return_Date) {
         Name = name;
         User_Id = user_Id;
         Fine_Amount = fine_Amount;
@@ -20,17 +21,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "Name='" + Name + '\'' +
-                ", User_Id=" + User_Id +
-                ", Fine_Amount=" + Fine_Amount +
-                ", Books_Issued=" + Books_Issued +
-                ", Date_Issued=" + Date_Issued +
-                ", Return_Date=" + Return_Date +
-                '}';
+        return " " + Name +
+                " " + User_Id +
+                " " + Fine_Amount +
+                " " + Books_Issued +
+                " " + Date_Issued +
+                " " + Return_Date
+                ;
     }
 
-    LocalDateTime Return_Date;
+
 
     public String getName() {
         return Name;
@@ -56,11 +56,11 @@ public class User {
         Fine_Amount = fine_Amount;
     }
 
-    public LocalDateTime getBooks_Issued() {
+    public String getBooks_Issued() {
         return Books_Issued;
     }
 
-    public void setBooks_Issued(LocalDateTime books_Issued) {
+    public void setBooks_Issued(String books_Issued) {
         Books_Issued = books_Issued;
     }
 

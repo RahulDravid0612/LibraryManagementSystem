@@ -7,10 +7,10 @@ interface BookManagement {
    public ArrayList<Book> AddBook(ArrayList l1) throws IOException;
    public void ViewBooksList(ArrayList l1) throws IOException;
     public void ViewByBookCode(ArrayList l1);
-    public void SortBook();
-    public void MarkAsIssued();
+    public ArrayList<Book> SortBook(ArrayList l1);
+    public ArrayList MarkAsIssued(ArrayList l1,ArrayList l2);
     public void MarkAsReturned();
-    public void DeleteBookByBookCode();
+    public ArrayList<Book> DeleteBookByBookCode(ArrayList l1);
     public void GenerateReport();
 
 }

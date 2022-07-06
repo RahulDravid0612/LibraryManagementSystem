@@ -1,6 +1,7 @@
 package LibraryManagementSystem;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 public class Book {
     String Book_Code;
@@ -8,8 +9,11 @@ public class Book {
     String Author;
 
     String Subject;
+
+    String Issue_Status;
     String Issued_To;
     LocalDateTime Issued_Date;
+
     LocalDateTime Returned_date;
 
     public String getIssued_To() {
@@ -45,14 +49,24 @@ public class Book {
         Subject = subject;
     }
 
-    public Book(String book_Code, String book_Name, String author, String subject,String issued_To, LocalDateTime issued_Date, LocalDateTime returned_date) {
+    public String getIssue_Status() {
+        return Issue_Status;
+    }
+
+    public void setIssue_Status(String issue_Status) {
+        Issue_Status = issue_Status;
+    }
+
+    public Book(String book_Code, String book_Name, String author, String subject,String issue_Status, String issued_To, LocalDateTime issued_Date, LocalDateTime returned_date) {
         Book_Code = book_Code;
         Book_Name = book_Name;
         Author = author;
         Subject = subject;
+        Issue_Status = issue_Status;
         Issued_To = issued_To;
         Issued_Date = issued_Date;
         Returned_date = returned_date;
+
     }
 
     public String getBook_Code() {
@@ -82,14 +96,27 @@ public class Book {
 
     @Override
     public String toString() {
-        return "" + Book_Code + '\'' +
-                "" + Book_Name + '\'' +
-                "" + Author + '\'' +
-                "" + Subject + '\'' +
-                "" + Issued_To + '\'' +
-                "" + Issued_Date +
-                "" + Returned_date +
-                '}';
+        return " " + Book_Code +
+                " " + Book_Name +
+                " " + Author +
+                " " + Subject +
+                " " + Issue_Status +
+                " " + Issued_To +
+                " " + Issued_Date +
+                " " + Returned_date
+                ;
     }
 
 }
+//  while ((str=br.readLine())!=null){
+//    String str=br.lines().collect(Collectors.joining());//file to string conversion
+//    String[] split=str.split(" ");//split string
+//
+//        for (int i = 0; i < split.length; i++) {
+//        System.out.println(split[i]);
+//        }
+//        LocalDateTime dateTime=LocalDateTime.parse(split[5]);
+//        LocalDateTime dateTime1=LocalDateTime.parse(split[6]);
+//        Book b2=new Book(split[0],split[1],split[2],split[3],split[4],dateTime,dateTime1);
+//        l1.add(b2);
+//  }
