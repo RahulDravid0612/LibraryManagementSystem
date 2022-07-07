@@ -1,5 +1,6 @@
 package LibraryManagementSystem;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,9 +9,10 @@ interface BookManagement {
    public void ViewBooksList(ArrayList l1) throws IOException;
     public void ViewByBookCode(ArrayList l1);
     public ArrayList<Book> SortBook(ArrayList l1);
-    public ArrayList MarkAsIssued(ArrayList l1,ArrayList l2);
-    public void MarkAsReturned();
+    public ArrayList<Book> CheckBookAvailability(ArrayList l1);
+    public void MarkAsIssued() throws IOException;
+    public void MarkAsReturned() throws IOException;
     public ArrayList<Book> DeleteBookByBookCode(ArrayList l1);
-    public void GenerateReport();
+    public void GenerateReport() throws FileNotFoundException;
 
 }
