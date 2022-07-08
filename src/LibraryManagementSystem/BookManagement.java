@@ -13,6 +13,6 @@ interface BookManagement {
     public void MarkAsIssued() throws IOException;
     public void MarkAsReturned() throws IOException;
     public ArrayList<Book> DeleteBookByBookCode(ArrayList l1);
-    public void GenerateReport() throws FileNotFoundException;
+    public void GenerateReport() throws IOException;
 
 }
