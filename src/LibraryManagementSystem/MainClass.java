@@ -279,6 +279,7 @@ public class MainClass implements BookManagement,UserManagement {
                 Book o = (Book) iterator3.next();
                 if (o.getBook_Code().equals(Book_Code)) {
                         o.setIssue_Status("Available");
+                        o.setIssued_To(null);
                         o.setIssued_Date(null);
                         o.setReturned_date(null);
                         count++;
