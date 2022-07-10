@@ -222,8 +222,6 @@ public class MainClass implements BookManagement,UserManagement {
                     u.setDate_Issued(LocalDateTime.now());
                     u.setReturn_Date(LocalDateTime.now().plusDays(7));
                     break we3;
-                } else {
-                    count1++;
                 }
             }
 //            if (count1 > 0) {
@@ -275,6 +273,7 @@ public class MainClass implements BookManagement,UserManagement {
             String Book_Code = sc.nextLine();
             System.out.println(Book_Code);
             Iterator iterator3 = l1.iterator();
+            int count=0;
             we1:
             while (iterator3.hasNext()) {
                 Book o = (Book) iterator3.next();
@@ -282,6 +281,7 @@ public class MainClass implements BookManagement,UserManagement {
                         o.setIssue_Status("Available");
                         o.setIssued_Date(null);
                         o.setReturned_date(null);
+                        count++;
                         break we1;
                 }
             }
@@ -296,11 +296,12 @@ public class MainClass implements BookManagement,UserManagement {
                     break we3;
                 }
             }
-//            if (count1 == 0) {
-//                System.out.println(" valid User_Id ");
-//            } else {
-//                break we;
-//            }
+            if (count==0) {
+                System.out.println(" Please enter valid User_Id ");
+                MarkAsReturned();
+            } else {
+                break we;
+            }
             System.out.println(" Book Returned Successfully ");
             System.out.println("-----------------------------------------\n");
             System.out.println("Do you want to return another book(Y/N)  ");
