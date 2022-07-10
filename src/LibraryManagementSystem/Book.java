@@ -96,14 +96,14 @@ public class Book {
 
     @Override
     public String toString() {
-        return " " + Book_Code +
-                " " + Book_Name +
-                " " + Author +
-                " " + Subject +
-                " " + Issue_Status +
-                " " + Issued_To +
-                " " + Issued_Date +
-                " " + Returned_date
+        return "" + Book_Code +
+                "," + Book_Name +
+                "," + Author +
+                "," + Subject +
+                "," + Issue_Status +
+                "," + Issued_To +
+                "," + Issued_Date +
+                "," + Returned_date+","
                 ;
     }
 
@@ -120,3 +120,19 @@ public class Book {
 //        Book b2=new Book(split[0],split[1],split[2],split[3],split[4],dateTime,dateTime1);
 //        l1.add(b2);
 //  }
+//while ((str = br.readLine()) != null) {
+//                String[] split = str.split(",");//split string
+//                LocalDateTime localDateTime;
+//                if (split[7].equals("null")){
+//                    localDateTime=null;
+//                }else {
+//                    localDateTime = (LocalDateTime.parse(split[7]));
+//                }
+//                LocalDateTime localDateTime1;
+//                if (split[8].equals("null")){
+//                    localDateTime1=null;
+//                }else {
+//                    localDateTime1 = LocalDateTime.parse(split[8]);
+//                }
+//                Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],localDateTime,localDateTime1);
+//                l1.add(b2);

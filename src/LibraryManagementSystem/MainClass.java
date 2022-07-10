@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 
+
 public class MainClass implements BookManagement,UserManagement {
     static Scanner sc = new Scanner(System.in);
     @Override
@@ -34,8 +35,6 @@ public class MainClass implements BookManagement,UserManagement {
         String Issue_Status="Available";
         String Issued_To = "NotIssued";
 
-//        LocalDateTime Issued_Date=LocalDateTime.now();
-//        LocalDateTime Returned_date=LocalDateTime.now();
 
         Book b1 = new Book(book_Code, book_Name, author, subject,Issue_Status, Issued_To,null,null);
         l1.add(b1);
@@ -65,13 +64,9 @@ public class MainClass implements BookManagement,UserManagement {
             }
             double Fine_Amount = 0;
             String Books_Issued = "null";
-//            LocalDateTime date_Issued=LocalDateTime.now();
-//            LocalDateTime return_Date = LocalDateTime.now();
-
 
             User u1 = new User(Name, User_Id, Fine_Amount, Books_Issued, null, null);
             l2.add(u1);
-            //System.out.println(l2);
             System.out.println(" User Added Successfully");
 
 
@@ -199,8 +194,6 @@ public class MainClass implements BookManagement,UserManagement {
             we1:
             while (iterator3.hasNext()) {
                 Book o = (Book) iterator3.next();
-//                System.out.println(o.getIssue_Status());
-//                System.out.println(o.getBook_Code());
                 if (o.getBook_Code().equals(Book_Code)) {
                     if(o.getIssue_Status().equals("Available")) {
                         o.setIssue_Status("Issued");
@@ -208,17 +201,17 @@ public class MainClass implements BookManagement,UserManagement {
                         o.setIssued_Date(LocalDateTime.now());
                         o.setReturned_date(LocalDateTime.now().plusDays(7));
                         break we1;
-                    }else {
-                        System.out.println("Book is already issued on "+o.getIssued_Date()+" to "+o.getIssued_To());
-                        count++;
+                    } else if (o.getIssue_Status().equals("Issued")) {
+                        System.out.println("Book is already issued on " + o.getIssued_Date() + " to " + o.getIssued_To());
+                        System.out.println(" try other Book ");
+                        continue we;
                     }
                 }
             }
-            if (count == 0) {
-                System.out.println(" Please enter a valid Book_Id ");
-            } else {
-                break we;
-            }
+//            if (count > 0) {
+//                System.out.println(" Please enter a valid Book_Id ");
+//                MarkAsReturned();
+//            }
             int count1=0;
             Iterator iterator1 = l2.iterator();
             we3:
@@ -233,17 +226,15 @@ public class MainClass implements BookManagement,UserManagement {
                     count1++;
                 }
             }
-            if (count1 == 0) {
-                System.out.println(" valid User_Id ");
-            } else {
-                break we;
-            }
-
+//            if (count1 > 0) {
+//                System.out.println(" valid User_Id ");
+//                MarkAsReturned();
+//            }
             System.out.println("Book " + Book_Code + " issued to user " + User_Id + " successfully");
             System.out.println("-----------------------------------------\n");
             System.out.println("Do you want to issue another book(Y/N)  ");
             a = sc.nextLine();
-            if (a == "Y") {
+            if (a.equals("Y")) {
                 continue we;
             } else {
                 break we;
@@ -259,6 +250,7 @@ public class MainClass implements BookManagement,UserManagement {
 
         }
         buffer.write("\n");
+       // System.out.println(l1);
         buffer.close();
         //write to the User.txt
         File file2=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Book.txt");
@@ -274,64 +266,50 @@ public class MainClass implements BookManagement,UserManagement {
     }
     @Override
     public void MarkAsReturned() throws IOException {
-       ArrayList l1=read();
-       ArrayList l2=read2();
+        ArrayList l1 = read();
+        ArrayList l2 = read2();
         String a;
         we:
         while (true) {
             System.out.println(" Enter the Book_Code");
             String Book_Code = sc.nextLine();
-            Iterator iterator = l1.iterator();
-            int count = 0;
+            System.out.println(Book_Code);
+            Iterator iterator3 = l1.iterator();
             we1:
-            while (iterator.hasNext()) {
-                Book o = (Book) iterator.next();
-                if(o.getBook_Code().equals(Book_Code)){
-                    o.setIssue_Status("Available");
-                    o.setIssued_Date(null);
-                    o.setReturned_date(null);
-                    break we;
-                }else {
-                    System.out.println("Book is already available in Library");
-                    count++;
-                }
-                if (count == 0) {
-                    System.out.println(" Please enter a valid Book_Id ");
-                } else {
-                    break we;
+            while (iterator3.hasNext()) {
+                Book o = (Book) iterator3.next();
+                if (o.getBook_Code().equals(Book_Code)) {
+                        o.setIssue_Status("Available");
+                        o.setIssued_Date(null);
+                        o.setReturned_date(null);
+                        break we1;
                 }
             }
-            int count1=0;
             Iterator iterator1 = l2.iterator();
             we3:
             while (iterator1.hasNext()) {
                 User u = (User) iterator1.next();
                 if (u.getBooks_Issued().equals(Book_Code)) {
-
+                    u.setDate_Issued(null);
                     u.setDate_Issued(null);
                     u.setReturn_Date(null);
-                    u.setBooks_Issued(" Empty ");
                     break we3;
-                } else {
-                    count1++;
                 }
             }
-            if (count1 == 0) {
-                System.out.println(" valid User_Id ");
-            } else {
-                break we;
-            }
-
-            System.out.println("Book returned successfully");
+//            if (count1 == 0) {
+//                System.out.println(" valid User_Id ");
+//            } else {
+//                break we;
+//            }
+            System.out.println(" Book Returned Successfully ");
             System.out.println("-----------------------------------------\n");
             System.out.println("Do you want to return another book(Y/N)  ");
             a = sc.nextLine();
-            if (a == "Y") {
+            if (a.equals("Y")) {
                 continue we;
             } else {
                 break we;
             }
-
         }
         //write to the Book.txt
         File file=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\User.txt");
@@ -343,6 +321,7 @@ public class MainClass implements BookManagement,UserManagement {
 
         }
         buffer.write("\n");
+        System.out.println(l2);
         buffer.close();
         //write to the User.txt
         File file2=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Book.txt");
@@ -351,11 +330,12 @@ public class MainClass implements BookManagement,UserManagement {
         BufferedWriter buffer2 = new BufferedWriter(writer2);
         for (int i = 0; i <l1.size() ; i++) {
             buffer2.write(l1.get(i).toString()+"\n");
-
         }
         buffer2.write("\n");
+        System.out.println(l1);
         buffer2.close();
     }
+
 
     @Override
     public ArrayList<Book> DeleteBookByBookCode(ArrayList l1) {
@@ -409,9 +389,20 @@ public class MainClass implements BookManagement,UserManagement {
                 try {
                     String str = null; //file to string conversion
                     while ((str = br.readLine()) != null) {
-                        String[] split = str.split(" ");//split string
-
-                        Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],null,null);
+                        String[] split = str.split(",");//split string
+                        LocalDateTime localDateTime;
+                        if (split[7].equals("null")){
+                            localDateTime=null;
+                        }else {
+                            localDateTime = (LocalDateTime.parse(split[7]));
+                        }
+                        LocalDateTime localDateTime1;
+                        if (split[8].equals("null")){
+                            localDateTime1=null;
+                        }else {
+                            localDateTime1 = LocalDateTime.parse(split[8]);
+                        }
+                        Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],localDateTime,localDateTime);
                             array1.add(b2);
 
                     }
@@ -456,70 +447,6 @@ public class MainClass implements BookManagement,UserManagement {
         return l1;
     }
 
-//    public void ViewAvailability() throws IOException {
-//        ArrayList array1=new ArrayList<>();
-//
-//        File file1=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Book.txt");
-//        BufferedReader br=new BufferedReader(new FileReader(file1));
-//        try {
-//            String str = null; //file to string conversion
-//            while ((str = br.readLine()) != null) {
-//                String[] split = str.split(" ");//split string
-//
-//                Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],null,null);
-//                if(split[5].equals("Available")){
-//                    array1.add(b2);
-//                }
-//            }
-//        }catch (ArrayIndexOutOfBoundsException | IOException e){
-//
-//        }
-//
-//        File file=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Availability.txt");
-//            file.createNewFile();
-//        FileWriter writer = new FileWriter(file);
-//        BufferedWriter buffer = new BufferedWriter(writer);
-//        for (int i = 0; i < array1.size(); i++) {
-//            buffer.write(array1.get(i).toString() + "\n");
-//
-//        }
-//        buffer.write("\n");
-//        buffer.close();
-//
-//    }
-
-
-//    public void ViewIssued() throws IOException {
-//        ArrayList array2=new ArrayList<>();
-//
-//        File file1=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Book.txt");
-//        BufferedReader br=new BufferedReader(new FileReader(file1));
-//        try {
-//            String str = null; //file to string conversion
-//            while ((str = br.readLine()) != null) {
-//                String[] split = str.split(" ");//split string
-//
-//                Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],LocalDateTime.parse(split[7]),LocalDateTime.parse(split[8]));
-//                if(split[5].equals("Issued")){
-//                    array2.add(b2);
-//                }
-//            }
-//        }catch (ArrayIndexOutOfBoundsException | IOException e){
-//
-//        }
-//
-//        File file=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Issued.txt");
-//        file.createNewFile();
-//        FileWriter writer = new FileWriter(file);
-//        BufferedWriter buffer = new BufferedWriter(writer);
-//        for (int i = 0; i < array2.size(); i++) {
-//            buffer.write(array2.get(i).toString() + "\n");
-//
-//        }
-//        buffer.write("\n");
-//        buffer.close();
-//
-//    }
 
     @Override
     public ArrayList<User> DeleteUser(ArrayList l2) {
@@ -566,27 +493,29 @@ public class MainClass implements BookManagement,UserManagement {
         try {
             String str = null; //file to string conversion
             while ((str = br.readLine()) != null) {
-                String[] split = str.split(" ");//split string
+                String[] split = str.split(",");//split string
                 LocalDateTime localDateTime;
-                if (split[7].equals("null")){
-                    localDateTime=null;
-                }else {
-                    localDateTime = (LocalDateTime.parse(split[7]));
-                }
                 LocalDateTime localDateTime1;
-                if (split[8].equals("null")){
-                    localDateTime1=null;
-                }else {
-                    localDateTime1 = LocalDateTime.parse(split[8]);
-                }
-                Book b2 = new Book(split[1], split[2], split[3], split[4], split[5],split[6],localDateTime,localDateTime1);
+                    if (split[6].equals("null")) {
+                        localDateTime=null;
+                    } else {
+                        localDateTime = LocalDateTime.parse(split[6]);
+                    }
+                    if (split[7].equals("null")) {
+                        localDateTime1=null;
+                    } else {
+                        localDateTime1 = LocalDateTime.parse(split[7]);
+                    }
+                Book b2 = new Book(split[0], split[1], split[2], split[3], split[4], split[5], localDateTime, localDateTime1);
                 l1.add(b2);
             }
-        }catch (ArrayIndexOutOfBoundsException | IOException e){
+               // System.out.println(l1);
+            }catch(ArrayIndexOutOfBoundsException | IOException e){
 
-        }
+            }
         return l1;
     }
+
 
     public ArrayList<User> read2() throws FileNotFoundException {
         ArrayList<User> l2=new ArrayList<>();
@@ -596,25 +525,24 @@ public class MainClass implements BookManagement,UserManagement {
         try {
             String str = null; //file to string conversion
             while ((str = br.readLine()) != null) {
-                String[] split = str.split(" ");//split string
+                String[] split = str.split(",");//split string
                 LocalDateTime localDateTime;
-                if (split[5].equals("null")){
-                    localDateTime=null;
-                }else {
-                    localDateTime = (LocalDateTime.parse(split[7]));
-                }
                 LocalDateTime localDateTime1;
-                if (split[6].equals("null")){
-                    localDateTime1=null;
-                }else {
-                    localDateTime1 = (LocalDateTime.parse(split[8]));
+                if(split[4].equals("null")){
+                    localDateTime=null;
+                }else{
+                    localDateTime= LocalDateTime.parse(split[4]);
                 }
-                User u2 = new User(split[1], split[2], Double.parseDouble(split[3]),split[4],localDateTime,localDateTime1);
-
+                if (split[5].equals("null")){
+                    localDateTime1=null;
+                }else{
+                    localDateTime1= LocalDateTime.parse(split[5]);
+                }
+                User u2 = new User(split[0],split[1],Double.parseDouble(split[2]),split[3],localDateTime,localDateTime1);
                 l2.add(u2);
+                //System.out.println(l2);
             }
         }catch (ArrayIndexOutOfBoundsException | IOException e){
-
         }
         return l2;
     }
@@ -625,7 +553,8 @@ public class MainClass implements BookManagement,UserManagement {
         MainClass m = new MainClass();
         ArrayList l1=m.read();
         ArrayList l2=m.read2();
-
+//       System.out.println(l1);
+//       System.out.println(l2);
 
         boolean condition=true;
         while (condition) {
@@ -776,9 +705,11 @@ public class MainClass implements BookManagement,UserManagement {
         }
 }
 class ViewAvailability extends Thread {
+
     @Override
     public void run() {
         MainClass m1 = new MainClass();
+        ArrayList temp=new ArrayList();
         ArrayList l1;
         try {
             l1 = m1.read();
@@ -791,7 +722,7 @@ class ViewAvailability extends Thread {
         while (iterator3.hasNext()) {
             Book o = (Book) iterator3.next();
                 if (o.getIssue_Status().equals("Available")) {
-                        l1.add(l1);
+                        temp.add(o);
                 }
         }
         File file=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\AvailabilityReport.txt");
@@ -807,9 +738,9 @@ class ViewAvailability extends Thread {
             throw new RuntimeException(e);
         }
         BufferedWriter buffer = new BufferedWriter(writer);
-        for (int i = 0; i < l1.size(); i++) {
+        for (int i = 0; i < temp.size(); i++) {
             try {
-                buffer.write(l1.get(i).toString() + "\n");
+                buffer.write(temp.get(i).toString() + "\n");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -828,11 +759,12 @@ class ViewAvailability extends Thread {
     }
 }
 
-class ViewIssue extends Thread{
+class ViewIssue extends  Thread{
 
 
     @Override
     public void run() {
+        ArrayList temp=new ArrayList();
         MainClass m1 = new MainClass();
         ArrayList l1;
         try {
@@ -846,7 +778,7 @@ class ViewIssue extends Thread{
         while (iterator3.hasNext()) {
             Book o = (Book) iterator3.next();
             if (o.getIssue_Status().equals("Issued")) {
-                l1.add(l1);
+                temp.add(o);
             }
         }
         File file=new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\IssuedReport.txt");
@@ -862,9 +794,9 @@ class ViewIssue extends Thread{
             throw new RuntimeException(e);
         }
         BufferedWriter buffer = new BufferedWriter(writer);
-        for (int i = 0; i < l1.size(); i++) {
+        for (int i = 0; i < temp.size(); i++) {
             try {
-                buffer.write(l1.get(i).toString() + "\n");
+                buffer.write(temp.get(i).toString() + "\n");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -882,4 +814,5 @@ class ViewIssue extends Thread{
         }
     }
 }
+
 

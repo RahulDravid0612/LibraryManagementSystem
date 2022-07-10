@@ -1,3 +1,4 @@
- 2Python Python Author2 Python Issued surya1 2022-07-08T10:50:11.124453300 2022-07-15T10:50:11.125457800
- 3Database DataBaseManagementSystem Author3 DB Available NotIssued null null
+b2,book,author,subject,Available,user1,null,null,
+b1,book,author,subject,Available,user1,null,null,
+b3,book,author,subject,Available,user2,null,null,
 

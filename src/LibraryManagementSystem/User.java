@@ -21,16 +21,14 @@ public class User {
 
     @Override
     public String toString() {
-        return " " + Name +
-                " " + User_Id +
-                " " + Fine_Amount +
-                " " + Books_Issued +
-                " " + Date_Issued +
-                " " + Return_Date
+        return "" + Name +
+                "," + User_Id +
+                "," + Fine_Amount +
+                "," + Books_Issued +
+                "," + Date_Issued +
+                "," + Return_Date+","
                 ;
     }
-
-
 
     public String getName() {
         return Name;
