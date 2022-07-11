@@ -143,7 +143,7 @@ public class MainClass implements BookManagement,UserManagement {
     public void CheckBookAvailability() throws IOException {
 
         ArrayList l1=read();
-        System.out.println(l1);
+       // System.out.println(l1);
         System.out.println(" Enter the Book_Code to Check Availability");
         String Book_Code=sc.nextLine();
         String IssuedTo="";
@@ -158,7 +158,6 @@ public class MainClass implements BookManagement,UserManagement {
                     Book_Code=o.getBookCode();
                     IssuedTo=o.getIssued_To();
                     flag = true;
-                    count++;
                     break;
                 }
                 count++;
@@ -171,6 +170,7 @@ public class MainClass implements BookManagement,UserManagement {
         }
         if (flag == true) {
             System.out.println(Book_Code + " assigned to " +IssuedTo );
+            CheckBookAvailability();
         }else{
             System.out.println("----------------------------");
             System.out.println(" Do you want Check other book (Y/N)");
@@ -308,7 +308,7 @@ public class MainClass implements BookManagement,UserManagement {
                 Book o = (Book) iterator3.next();
                 if (o.getBookCode().equals(Book_Code)) {
                         o.setIssue_Status("Available");
-                        o.setIssued_To(null);
+                        o.setIssued_To("NotIssued");
                         o.setIssued_Date(null);
                         o.setReturned_date(null);
                         count++;
@@ -324,7 +324,6 @@ public class MainClass implements BookManagement,UserManagement {
             while (iterator1.hasNext()) {
                 User u = (User) iterator1.next();
                 if (u.getBooks_Issued().equals(Book_Code)) {
-                    u.setDate_Issued(null);
                     u.setDate_Issued(null);
                     u.setReturn_Date(null);
                     break we3;

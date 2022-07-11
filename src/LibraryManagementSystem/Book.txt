@@ -1,3 +1,5 @@
-b1,book,author,subject,Available,null,null,null,
 b2,book,author,subject,Issued,u2,2022-07-11T10:27:06.835642300,2022-07-18T10:27:06.835642300,
+b3,book,author,subject,Available,NotIssued,null,null,
+b4,book,author,subject,Available,NotIssued,null,null,
+b1,book,author,subject,Available,NotIssued,null,null,
 
