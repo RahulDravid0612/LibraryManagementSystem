@@ -1,6 +1,5 @@
 package LibraryManagementSystem;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,6 +12,5 @@ interface BookManagement {
     public void MarkAsIssued() throws IOException;
     public void MarkAsReturned() throws IOException;
     public ArrayList<Book> DeleteBookByBookCode(ArrayList l1);
-    public void GenerateReport() throws IOException;
 
 }
