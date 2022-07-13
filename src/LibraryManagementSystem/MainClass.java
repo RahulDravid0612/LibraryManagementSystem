@@ -692,8 +692,11 @@ public class MainClass implements BookManagement,UserManagement {
                     Book o = (Book) iterator.next();
                     temp.add(o);
                 }
-               ExportAll e=new ExportAll(temp);
+                Thread1 e=new Thread1(temp);
                e.start();
+                Thread2 vi=new Thread2(temp);
+                vi.start();
+
                 break;
             case 2:  ArrayList temp1=new ArrayList<>();
                 ArrayList booklist1=read();
@@ -704,8 +707,12 @@ public class MainClass implements BookManagement,UserManagement {
                         temp1.add(o);
                     }
                 }
-                ViewAvailability vi=new ViewAvailability(temp1);
-                    vi.start();
+                Thread1 t1=new Thread1(temp1);
+                t1.start();
+                Thread2 t2=new Thread2(temp1);
+                t2.start();
+
+
                 break;
             case 3: ArrayList temp2=new ArrayList<>();
                 ArrayList booklist2=read();
@@ -716,8 +723,10 @@ public class MainClass implements BookManagement,UserManagement {
                         temp2.add(o);
                     }
                 }
-                ViewIssue ve=new ViewIssue(temp2);
-                    ve.start();
+                  Thread1 t11=new Thread1(temp2);
+                 t11.start();
+                    Thread2 t22=new Thread2(temp2);
+                  t22.start();
                 break;
             default:
                 System.out.println("Please enter a valid choice..");
@@ -725,16 +734,67 @@ public class MainClass implements BookManagement,UserManagement {
     }
 }
 
-    class ExportAll extends Thread{
+    class Thread1 extends Thread{
         ArrayList temp = new ArrayList();
-        public ExportAll(ArrayList booklist) {
+        public Thread1(ArrayList booklist) {
             for (int i = 0; i < booklist.size(); i++) {
+
                 temp.add(booklist.get(i));
             }
         }
             @Override
             public void run() {
+                for (int i = 0; i < temp.size()/2; i++) {
+                    System.out.println("Thread 1 running");
+                    File file = new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Report.txt");
 
+                    FileWriter writer = null;
+                    try {
+                        writer = new FileWriter(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    BufferedWriter buffer = new BufferedWriter(writer);
+                    for (int j = 0; j < temp.size(); j++) {
+                        try {
+                            buffer.write(temp.get(j).toString() + "\n");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    try {
+                        buffer.write("\n");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        buffer.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        Thread1.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+
+    }
+
+    class  Thread2 extends Thread {
+
+        ArrayList temp = new ArrayList();
+        public Thread2(ArrayList booklist) {
+            for (int i = 0; i < booklist.size(); i++) {
+                temp.add(booklist.get(i));
+            }
+        }
+        @Override
+        public void run() {
+            for (int i = temp.size()/2; i < temp.size(); i++) {
+                System.out.println(" Thread 2 running");
                 File file = new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Report.txt");
 
                 FileWriter writer = null;
@@ -744,13 +804,12 @@ public class MainClass implements BookManagement,UserManagement {
                     throw new RuntimeException(e);
                 }
                 BufferedWriter buffer = new BufferedWriter(writer);
-                for (int i = 0; i < temp.size(); i++) {
+                for (int j = 0; j < temp.size(); j++) {
                     try {
-                        buffer.write(temp.get(i).toString() + "\n");
+                        buffer.write(temp.get(j).toString() + "\n");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
                 }
                 try {
                     buffer.write("\n");
@@ -762,94 +821,57 @@ public class MainClass implements BookManagement,UserManagement {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-            }
-
-
-    }
-
-    class  ViewAvailability extends Thread {
-
-        ArrayList temp = new ArrayList();
-        public ViewAvailability(ArrayList booklist) {
-            for (int i = 0; i < booklist.size(); i++) {
-                temp.add(booklist.get(i));
-            }
-        }
-        @Override
-        public void run() {
-            File file = new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Report.txt");
-
-            FileWriter writer = null;
-            try {
-                writer = new FileWriter(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            BufferedWriter buffer = new BufferedWriter(writer);
-            for (int i = 0; i < temp.size(); i++) {
                 try {
-                    buffer.write(temp.get(i).toString() + "\n");
-                } catch (IOException e) {
+                    Thread2.sleep(2000);
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
             }
-            try {
-                buffer.write("\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                buffer.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
         }
 
     }
 
-    class  ViewIssue extends Thread{
-
-        ArrayList temp = new ArrayList();
-        public ViewIssue(ArrayList booklist) {
-            for (int i = 0; i < booklist.size(); i++) {
-                temp.add(booklist.get(i));
-            }
-        }
-        @Override
-        public void run() {
-
-            File file = new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Report.txt");
-
-            FileWriter writer = null;
-            try {
-                writer = new FileWriter(file);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            BufferedWriter buffer = new BufferedWriter(writer);
-            for (int i = 0; i < temp.size(); i++) {
-                try {
-                    buffer.write(temp.get(i).toString() + "\n");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-            }
-            try {
-                buffer.write("\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                buffer.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-
-    }
+//    class  ViewIssue extends Thread{
+//
+//        ArrayList temp = new ArrayList();
+//        public ViewIssue(ArrayList booklist) {
+//            for (int i = 0; i < booklist.size(); i++) {
+//                temp.add(booklist.get(i));
+//            }
+//        }
+//        @Override
+//        public void run() {
+//
+//            File file = new File("C:\\Users\\Rahul Dravid\\IdeaProjects\\Library Management System\\src\\LibraryManagementSystem\\Report.txt");
+//
+//            FileWriter writer = null;
+//            try {
+//                writer = new FileWriter(file);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            BufferedWriter buffer = new BufferedWriter(writer);
+//            for (int i = 0; i < temp.size(); i++) {
+//                try {
+//                    buffer.write(temp.get(i).toString() + "\n");
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//
+//            }
+//            try {
+//                buffer.write("\n");
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            try {
+//                buffer.close();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//
+//        }
+//
+//    }
 

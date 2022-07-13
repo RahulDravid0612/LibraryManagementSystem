@@ -1,3 +1,7 @@
 b2,book,author,subject,Issued,u1,2022-07-11T18:00:24.013133300,2022-07-18T18:00:24.014034,
 b4,book,author,subject,Issued,u1,2022-07-11T18:02:23.730514800,2022-07-18T18:02:23.730514800,
+b1,book,author,subject,Available,NotIssued,null,null,
+b5,Data structure,author,ds,Available,NotIssued,null,null,
+b7,book,author,subject,Available,NotIssued,null,null,
+b9,datastructure,rahul dravid,subject,Available,NotIssued,null,null,
 
